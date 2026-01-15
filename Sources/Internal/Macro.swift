@@ -30,7 +30,6 @@ public struct AutoDefaultsSettingMacro: DeclarationMacro {
 
     return [
       """
-      extension Defaults {
         public struct \(raw: key.prefix(1).uppercased() + key.dropFirst())Setting: DefaultsSetting {
           public static var shared = Self()
 
@@ -38,7 +37,6 @@ public struct AutoDefaultsSettingMacro: DeclarationMacro {
             "\(raw: key)",
             default: \(raw: defaultValue)
           )
-        }
       }
       """
     ]

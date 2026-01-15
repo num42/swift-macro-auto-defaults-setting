@@ -1,1 +1,7 @@
-#AutoDefaultsSetting(name: "ollectionSortOrder", type: Int.self, default:Model.SortOrder.ascending.rawValue)
+extension Defaults {
+  #AutoDefaultsSetting(
+    name: "collectionSortOrder",
+    type: Int.self,
+    default: Model.SortOrder.ascending.rawValue
+  )
+}

@@ -24,9 +24,6 @@ public struct AutoDefaultsSettingMacro: DeclarationMacro {
     let defaultValue = node.arguments
       .dropFirst(2)
       .first!
-      .expression.as(MemberAccessExprSyntax.self)!
-      .base!
-      .description
 
     return [
       """

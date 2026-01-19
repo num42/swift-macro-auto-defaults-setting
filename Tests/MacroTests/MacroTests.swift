@@ -15,5 +15,9 @@ import Testing
     @Test func standardType() {
       MacroTester.testMacro(macros: testMacros)
     }
+
+    @Test func enumType() {
+      MacroTester.testMacro(macros: testMacros)
+    }
   }
 #endif

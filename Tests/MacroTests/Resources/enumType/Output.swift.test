@@ -4,7 +4,7 @@ extension Defaults {
 
     public let key = Key<Int>(
       "collectionSortOrder",
-      default: 1
+      default: Model.SortOrder.ascending.rawValue
     )
   }
 }

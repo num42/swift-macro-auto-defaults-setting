@@ -2,6 +2,6 @@ extension Defaults {
   #AutoDefaultsSetting(
     name: "collectionSortOrder",
     type: Int.self,
-    default: 1
+    default: Model.SortOrder.ascending.rawValue
   )
 }

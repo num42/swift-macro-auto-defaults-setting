@@ -24,9 +24,6 @@ public struct AutoDefaultsSettingMacro: DeclarationMacro {
     let defaultValue = node.arguments
       .dropFirst(2)
       .first!
-      .expression.as(MemberAccessExprSyntax.self)!
-      .base!
-      .description
 
     let result: DeclSyntax = """
         public struct \(raw: key.prefix(1).uppercased() + key.dropFirst())Setting: DefaultsSetting {
@@ -34,7 +31,7 @@ public struct AutoDefaultsSettingMacro: DeclarationMacro {
 
         public let key = Key<\(raw: typeString)>(
           "\(raw: key)",
-          default: \(raw: defaultValue.description).rawValue
+          \(raw: defaultValue.description.drop(while: { $0.isWhitespace }))
         )
       }
       """

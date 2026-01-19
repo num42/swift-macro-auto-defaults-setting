@@ -24,18 +24,21 @@ public struct AutoDefaultsSettingMacro: DeclarationMacro {
     let defaultValue = node.arguments
       .dropFirst(2)
       .first!
+      .expression.as(MemberAccessExprSyntax.self)!
+      .base!
+      .description
 
-    return [
-      """
+    let result: DeclSyntax = """
         public struct \(raw: key.prefix(1).uppercased() + key.dropFirst())Setting: DefaultsSetting {
-          public static var shared = Self()
+        public static var shared = Self()
 
-          public let key = Key<\(raw: typeString)>(
-            "\(raw: key)",
-            default: \(raw: defaultValue)
-          )
+        public let key = Key<\(raw: typeString)>(
+          "\(raw: key)",
+          default: \(raw: defaultValue.description).rawValue
+        )
       }
       """
-    ]
+
+    return [result]
   }
 }

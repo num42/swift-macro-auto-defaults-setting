@@ -17,7 +17,7 @@ let package = Package(
   ],
   dependencies: [
     .package(url: "https://github.com/num42/swift-macrotester.git", from: "2.2.2"),
-    .package(url: "https://github.com/swiftlang/swift-syntax.git", from: "602.0.0"),
+    .package(url: "https://github.com/swiftlang/swift-syntax.git", from: "602.0.0")
   ],
   targets: [
     .macro(
@@ -25,7 +25,7 @@ let package = Package(
       dependencies: [
         .product(name: "SwiftSyntaxMacros", package: "swift-syntax"),
         .product(name: "SwiftCompilerPlugin", package: "swift-syntax"),
-        .product(name: "SwiftDiagnostics", package: "swift-syntax"),
+        .product(name: "SwiftDiagnostics", package: "swift-syntax")
       ],
       path: "Sources/Internal"
     ),
@@ -41,10 +41,10 @@ let package = Package(
       dependencies: [
         .target(name: "\(name)Macros"),
         .product(name: "MacroTester", package: "swift-macrotester"),
-        .product(name: "SwiftSyntaxMacrosTestSupport", package: "swift-syntax"),
+        .product(name: "SwiftSyntaxMacrosTestSupport", package: "swift-syntax")
       ],
       path: "Tests/MacroTests",
       resources: [.copy("Resources")]
-    ),
+    )
   ]
 )

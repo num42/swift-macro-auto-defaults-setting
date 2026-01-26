@@ -1,0 +1,3 @@
+import AutoDefaultsSetting
+
+#AutoDefaultsSetting(key: "recentItems", type: [String].self, default: [])

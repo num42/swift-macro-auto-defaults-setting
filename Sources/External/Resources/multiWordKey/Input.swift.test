@@ -1,0 +1,3 @@
+import AutoDefaultsSetting
+
+#AutoDefaultsSetting(key: "selectedThemeColor", type: String.self, default: "blue")

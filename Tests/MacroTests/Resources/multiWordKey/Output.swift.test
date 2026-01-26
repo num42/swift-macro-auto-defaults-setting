@@ -1,0 +1,10 @@
+import AutoDefaultsSetting
+
+public struct SelectedThemeColorSetting: DefaultsSetting {
+  public static var shared = Self()
+
+  public let key = Key<String>(
+    "selectedThemeColor",
+    default: "blue"
+  )
+}

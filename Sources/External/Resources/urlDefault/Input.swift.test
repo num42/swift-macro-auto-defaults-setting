@@ -1,0 +1,4 @@
+import AutoDefaultsSetting
+import Foundation
+
+#AutoDefaultsSetting(key: "serverURL", type: URL?.self, default: nil)

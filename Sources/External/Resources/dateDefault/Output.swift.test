@@ -1,0 +1,11 @@
+import AutoDefaultsSetting
+import Foundation
+
+public struct LastModifiedSetting: DefaultsSetting {
+  public static var shared = Self()
+
+  public let key = Key<Date?>(
+    "lastModified",
+    default: nil
+  )
+}

@@ -1,0 +1,3 @@
+import AutoDefaultsSetting
+
+#AutoDefaultsSetting(key: "launchCount", type: Int.self, default: 0)

@@ -1,0 +1,4 @@
+import AutoDefaultsSetting
+import Foundation
+
+#AutoDefaultsSetting(key: "lastModified", type: Date?.self, default: nil)

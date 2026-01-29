@@ -1,0 +1,11 @@
+import AutoDefaultsSetting
+import Foundation
+
+public struct ServerURLSetting: DefaultsSetting {
+  public static var shared = Self()
+
+  public let key = Key<URL?>(
+    "serverURL",
+    default: nil
+  )
+}

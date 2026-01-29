@@ -1,0 +1,10 @@
+import AutoDefaultsSetting
+
+public struct RecentItemsSetting: DefaultsSetting {
+  public static var shared = Self()
+
+  public let key = Key<[String]>(
+    "recentItems",
+    default: []
+  )
+}

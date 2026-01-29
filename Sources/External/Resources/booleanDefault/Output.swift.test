@@ -1,0 +1,10 @@
+import AutoDefaultsSetting
+
+public struct IsDarkModeSetting: DefaultsSetting {
+  public static var shared = Self()
+
+  public let key = Key<Bool>(
+    "isDarkMode",
+    default: false
+  )
+}

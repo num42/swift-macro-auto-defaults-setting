@@ -189,4 +189,3 @@ public struct AutoDefaultsSettingMacro: DeclarationMacro {
     return firstChar.uppercased() + key.dropFirst() + "Setting"
   }
 }
-

@@ -3,72 +3,44 @@ import SwiftDiagnostics
 import SwiftSyntax
 import SwiftSyntaxMacros
 
-public enum AutoDefaultsSettingError: Error, CustomStringConvertible {
-  case requiresThreeArguments(got: Int)
-  case keyMustBeStringLiteral
-  case keyCannotBeEmpty
-  case keyMustBeValidIdentifier(String)
-  case typeMustBeMemberAccess
-  case missingDefaultArgument
-
-  public var description: String {
-    switch self {
-    case .requiresThreeArguments(let count):
-      return
-        "AutoDefaultsSetting requires exactly 3 arguments (key, type, default), but got \(count)"
-    case .keyMustBeStringLiteral:
-      return "The 'key' argument must be a string literal"
-    case .keyCannotBeEmpty:
-      return "The 'key' argument cannot be an empty string"
-    case .keyMustBeValidIdentifier(let key):
-      return "The 'key' '\(key)' must be a valid identifier (alphanumeric and underscores only)"
-    case .typeMustBeMemberAccess:
-      return "The 'type' argument must be in the form 'TypeName.self'"
-    case .missingDefaultArgument:
-      return "The 'default' argument is required"
-    }
-  }
-}
-
-/// Diagnostic messages
-public enum MacroDiagnostic: String, DiagnosticMessage {
-  case requiresThreeArguments
-  case keyMustBeStringLiteral
-  case keyMustBePlainStringLiteral
-  case keyCannotBeEmpty
-  case keyMustBeValidIdentifier
-  case typeMustBeMemberAccess
-  case missingDefaultArgument
-
-  public var message: String {
-    switch self {
-    case .requiresThreeArguments:
-      return "AutoDefaultsSetting requires exactly 3 arguments (key, type, default)"
-    case .keyMustBeStringLiteral:
-      return "The 'key' argument must be a string literal"
-    case .keyMustBePlainStringLiteral:
-      return "The 'key' argument must be a non-interpolated string literal"
-    case .keyCannotBeEmpty:
-      return "The 'key' argument cannot be an empty string"
-    case .keyMustBeValidIdentifier:
-      return "The 'key' must be a valid identifier (alphanumeric and underscores only)"
-    case .typeMustBeMemberAccess:
-      return "The 'type' argument must be in the form 'TypeName.self'"
-    case .missingDefaultArgument:
-      return "The 'default' argument is required"
-    }
-  }
-
-  public var diagnosticID: MessageID {
-    MessageID(domain: "AutoDefaultsSettingMacro", id: rawValue)
-  }
-
-  public var severity: DiagnosticSeverity {
-    .error
-  }
-}
-
 public struct AutoDefaultsSettingMacro: DeclarationMacro {
+  public enum MacroDiagnostic: String, DiagnosticMessage {
+    case requiresThreeArguments
+    case keyMustBeStringLiteral
+    case keyMustBePlainStringLiteral
+    case keyCannotBeEmpty
+    case keyMustBeValidIdentifier
+    case typeMustBeMemberAccess
+    case missingDefaultArgument
+
+    public var message: String {
+      switch self {
+      case .requiresThreeArguments:
+        return "AutoDefaultsSetting requires exactly 3 arguments (key, type, default)"
+      case .keyMustBeStringLiteral:
+        return "The 'key' argument must be a string literal"
+      case .keyMustBePlainStringLiteral:
+        return "The 'key' argument must be a non-interpolated string literal"
+      case .keyCannotBeEmpty:
+        return "The 'key' argument cannot be an empty string"
+      case .keyMustBeValidIdentifier:
+        return "The 'key' must be a valid identifier (alphanumeric and underscores only)"
+      case .typeMustBeMemberAccess:
+        return "The 'type' argument must be in the form 'TypeName.self'"
+      case .missingDefaultArgument:
+        return "The 'default' argument is required"
+      }
+    }
+
+    public var diagnosticID: MessageID {
+      MessageID(domain: "AutoDefaultsSettingMacro", id: rawValue)
+    }
+
+    public var severity: DiagnosticSeverity {
+      .error
+    }
+  }
+
   public static func expansion(
     of node: some FreestandingMacroExpansionSyntax,
     in context: some MacroExpansionContext

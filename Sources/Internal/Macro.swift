@@ -34,6 +34,7 @@ public enum AutoDefaultsSettingError: Error, CustomStringConvertible {
 enum Diagnostic: String, DiagnosticMessage {
   case requiresThreeArguments
   case keyMustBeStringLiteral
+  case keyMustBePlainStringLiteral
   case keyCannotBeEmpty
   case keyMustBeValidIdentifier
   case typeMustBeMemberAccess
@@ -45,6 +46,8 @@ enum Diagnostic: String, DiagnosticMessage {
       return "AutoDefaultsSetting requires exactly 3 arguments (key, type, default)"
     case .keyMustBeStringLiteral:
       return "The 'key' argument must be a string literal"
+    case .keyMustBePlainStringLiteral:
+      return "The 'key' argument must be a non-interpolated string literal"
     case .keyCannotBeEmpty:
       return "The 'key' argument cannot be an empty string"
     case .keyMustBeValidIdentifier:
@@ -94,10 +97,13 @@ public struct AutoDefaultsSettingMacro: DeclarationMacro {
       throw DiagnosticsError(diagnostics: [diagnostic])
     }
 
-    guard let keySegment = keyExpr.segments.first?.as(StringSegmentSyntax.self) else {
+    guard
+      keyExpr.segments.count == 1,
+      let keySegment = keyExpr.segments.first?.as(StringSegmentSyntax.self)
+    else {
       let diagnostic = Diagnostic(
         node: Syntax(keyExpr),
-        message: AutoDefaultsSettingDiagnostic.keyCannotBeEmpty,
+        message: Diagnostic.keyMustBePlainStringLiteral,
         highlights: [Syntax(keyExpr)]
       )
       context.diagnose(diagnostic)

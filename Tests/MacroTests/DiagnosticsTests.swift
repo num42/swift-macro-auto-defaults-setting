@@ -19,7 +19,7 @@ import Testing
         expandedSource: "",
         diagnostics: [
           .init(
-            message: AutoDefaultsSettingMacro.MacroDiagnostic.requiresThreeArguments.message,
+            message: MacroDiagnostic.requiresThreeArguments.message,
             line: 1,
             column: 1
           )
@@ -36,7 +36,7 @@ import Testing
         expandedSource: "",
         diagnostics: [
           .init(
-            message: AutoDefaultsSettingMacro.MacroDiagnostic.keyMustBePlainStringLiteral.message,
+            message: MacroDiagnostic.keyMustBePlainStringLiteral.message,
             line: 1,
             column: 1
           )

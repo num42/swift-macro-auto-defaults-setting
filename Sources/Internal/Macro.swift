@@ -31,7 +31,7 @@ public enum AutoDefaultsSettingError: Error, CustomStringConvertible {
 }
 
 /// Diagnostic messages
-enum MacroDiagnostic: String, DiagnosticMessage {
+public enum MacroDiagnostic: String, DiagnosticMessage {
   case requiresThreeArguments
   case keyMustBeStringLiteral
   case keyMustBePlainStringLiteral
@@ -40,7 +40,7 @@ enum MacroDiagnostic: String, DiagnosticMessage {
   case typeMustBeMemberAccess
   case missingDefaultArgument
 
-  var message: String {
+  public var message: String {
     switch self {
     case .requiresThreeArguments:
       return "AutoDefaultsSetting requires exactly 3 arguments (key, type, default)"
@@ -59,11 +59,11 @@ enum MacroDiagnostic: String, DiagnosticMessage {
     }
   }
 
-  var diagnosticID: MessageID {
+  public var diagnosticID: MessageID {
     MessageID(domain: "AutoDefaultsSettingMacro", id: rawValue)
   }
 
-  var severity: DiagnosticSeverity {
+  public var severity: DiagnosticSeverity {
     .error
   }
 }

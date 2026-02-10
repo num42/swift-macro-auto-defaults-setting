@@ -1,3 +1,4 @@
+internal import Foundation
 internal import MacroHelper
 public import SwiftDiagnostics
 public import SwiftSyntax

@@ -1,3 +1,0 @@
-import AutoDefaultsSetting
-
-#AutoDefaultsSetting(key: "username", type: String?.self, default: nil)

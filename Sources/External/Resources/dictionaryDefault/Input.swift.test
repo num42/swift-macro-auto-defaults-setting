@@ -1,3 +1,0 @@
-import AutoDefaultsSetting
-
-#AutoDefaultsSetting(key: "preferences", type: [String: Int].self, default: [:])

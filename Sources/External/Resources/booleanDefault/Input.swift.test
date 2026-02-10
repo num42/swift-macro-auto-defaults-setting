@@ -1,3 +1,0 @@
-import AutoDefaultsSetting
-
-#AutoDefaultsSetting(key: "isDarkMode", type: Bool.self, default: false)

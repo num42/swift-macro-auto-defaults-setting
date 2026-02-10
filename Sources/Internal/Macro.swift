@@ -31,20 +31,23 @@ public enum AutoDefaultsSettingError: Error, CustomStringConvertible {
 }
 
 /// Diagnostic messages
-enum AutoDefaultsSettingDiagnostic: String, DiagnosticMessage {
+public enum MacroDiagnostic: String, DiagnosticMessage {
   case requiresThreeArguments
   case keyMustBeStringLiteral
+  case keyMustBePlainStringLiteral
   case keyCannotBeEmpty
   case keyMustBeValidIdentifier
   case typeMustBeMemberAccess
   case missingDefaultArgument
 
-  var message: String {
+  public var message: String {
     switch self {
     case .requiresThreeArguments:
       return "AutoDefaultsSetting requires exactly 3 arguments (key, type, default)"
     case .keyMustBeStringLiteral:
       return "The 'key' argument must be a string literal"
+    case .keyMustBePlainStringLiteral:
+      return "The 'key' argument must be a non-interpolated string literal"
     case .keyCannotBeEmpty:
       return "The 'key' argument cannot be an empty string"
     case .keyMustBeValidIdentifier:
@@ -56,11 +59,11 @@ enum AutoDefaultsSettingDiagnostic: String, DiagnosticMessage {
     }
   }
 
-  var diagnosticID: MessageID {
+  public var diagnosticID: MessageID {
     MessageID(domain: "AutoDefaultsSettingMacro", id: rawValue)
   }
 
-  var severity: DiagnosticSeverity {
+  public var severity: DiagnosticSeverity {
     .error
   }
 }
@@ -76,7 +79,7 @@ public struct AutoDefaultsSettingMacro: DeclarationMacro {
     guard arguments.count == 3 else {
       let diagnostic = Diagnostic(
         node: Syntax(node),
-        message: AutoDefaultsSettingDiagnostic.requiresThreeArguments,
+        message: MacroDiagnostic.requiresThreeArguments,
         highlights: [Syntax(node.arguments)]
       )
       context.diagnose(diagnostic)
@@ -87,17 +90,20 @@ public struct AutoDefaultsSettingMacro: DeclarationMacro {
     guard let keyExpr = arguments[0].expression.as(StringLiteralExprSyntax.self) else {
       let diagnostic = Diagnostic(
         node: Syntax(arguments[0].expression),
-        message: AutoDefaultsSettingDiagnostic.keyMustBeStringLiteral,
+        message: MacroDiagnostic.keyMustBeStringLiteral,
         highlights: [Syntax(arguments[0].expression)]
       )
       context.diagnose(diagnostic)
       throw DiagnosticsError(diagnostics: [diagnostic])
     }
 
-    guard let keySegment = keyExpr.segments.first?.as(StringSegmentSyntax.self) else {
+    guard
+      keyExpr.segments.count == 1,
+      let keySegment = keyExpr.segments.first?.as(StringSegmentSyntax.self)
+    else {
       let diagnostic = Diagnostic(
         node: Syntax(keyExpr),
-        message: AutoDefaultsSettingDiagnostic.keyCannotBeEmpty,
+        message: MacroDiagnostic.keyMustBePlainStringLiteral,
         highlights: [Syntax(keyExpr)]
       )
       context.diagnose(diagnostic)
@@ -109,7 +115,7 @@ public struct AutoDefaultsSettingMacro: DeclarationMacro {
     guard !key.isEmpty else {
       let diagnostic = Diagnostic(
         node: Syntax(keyExpr),
-        message: AutoDefaultsSettingDiagnostic.keyCannotBeEmpty,
+        message: MacroDiagnostic.keyCannotBeEmpty,
         highlights: [Syntax(keyExpr)]
       )
       context.diagnose(diagnostic)
@@ -121,7 +127,7 @@ public struct AutoDefaultsSettingMacro: DeclarationMacro {
     guard key.unicodeScalars.allSatisfy({ validKeyCharacters.contains($0) }) else {
       let diagnostic = Diagnostic(
         node: Syntax(keyExpr),
-        message: AutoDefaultsSettingDiagnostic.keyMustBeValidIdentifier,
+        message: MacroDiagnostic.keyMustBeValidIdentifier,
         highlights: [Syntax(keyExpr)]
       )
       context.diagnose(diagnostic)
@@ -134,7 +140,7 @@ public struct AutoDefaultsSettingMacro: DeclarationMacro {
     else {
       let diagnostic = Diagnostic(
         node: Syntax(arguments[1].expression),
-        message: AutoDefaultsSettingDiagnostic.typeMustBeMemberAccess,
+        message: MacroDiagnostic.typeMustBeMemberAccess,
         highlights: [Syntax(arguments[1].expression)]
       )
       context.diagnose(diagnostic)
@@ -147,7 +153,7 @@ public struct AutoDefaultsSettingMacro: DeclarationMacro {
     guard arguments.count > 2 else {
       let diagnostic = Diagnostic(
         node: Syntax(node),
-        message: AutoDefaultsSettingDiagnostic.missingDefaultArgument
+        message: MacroDiagnostic.missingDefaultArgument
       )
       context.diagnose(diagnostic)
       throw DiagnosticsError(diagnostics: [diagnostic])

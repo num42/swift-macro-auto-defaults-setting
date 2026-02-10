@@ -1,7 +1,7 @@
-import MacroTester
-import SwiftSyntaxMacros
-import SwiftSyntaxMacrosTestSupport
-import Testing
+internal import MacroTester
+internal import SwiftSyntaxMacros
+internal import SwiftSyntaxMacrosTestSupport
+internal import Testing
 
 #if canImport(AutoDefaultsSettingMacros)
   import AutoDefaultsSettingMacros
@@ -19,7 +19,7 @@ import Testing
         expandedSource: "",
         diagnostics: [
           .init(
-            message: MacroDiagnostic.requiresThreeArguments.message,
+            message: AutoDefaultsSettingMacro.MacroDiagnostic.requiresThreeArguments.message,
             line: 1,
             column: 1
           )
@@ -36,7 +36,7 @@ import Testing
         expandedSource: "",
         diagnostics: [
           .init(
-            message: MacroDiagnostic.keyMustBePlainStringLiteral.message,
+            message: AutoDefaultsSettingMacro.MacroDiagnostic.keyMustBePlainStringLiteral.message,
             line: 1,
             column: 1
           )

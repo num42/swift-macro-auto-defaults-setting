@@ -2,6 +2,11 @@
 
 A Swift macro that automatically generates type-safe UserDefaults setting wrappers for use with the [Defaults](https://github.com/sindresorhus/Defaults) package.
 
+## Requirements
+
+- Swift 6.3 toolchain or later (tested with Xcode 27)
+- Platforms: macOS 14, iOS 13, tvOS 13, watchOS 6, macCatalyst 13
+
 ## Overview
 
 `AutoDefaultsSetting` is a freestanding declaration macro designed to work seamlessly with the [Defaults](https://github.com/sindresorhus/Defaults) package. It generates boilerplate code for creating `DefaultsSetting` conforming structures, reducing repetitive code when defining your app's user defaults keys. Instead of manually creating setting structures, the macro generates them for you based on a key, type, and default value.

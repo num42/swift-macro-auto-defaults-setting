@@ -17,7 +17,7 @@ public struct AutoDefaultsSettingMacro: DeclarationMacro {
     public var message: String {
       switch self {
       case .requiresThreeArguments:
-        return "AutoDefaultsSetting requires exactly 3 arguments (key, type, default)"
+        return "#AutoDefaultsSetting requires exactly 3 arguments (key, type, default)"
       case .keyMustBeStringLiteral:
         return "The 'key' argument must be a string literal"
       case .keyMustBePlainStringLiteral:
@@ -34,7 +34,7 @@ public struct AutoDefaultsSettingMacro: DeclarationMacro {
     }
 
     public var diagnosticID: MessageID {
-      MessageID(domain: "AutoDefaultsSettingMacro", id: rawValue)
+      MessageID(domain: "AutoDefaultsSetting", id: rawValue)
     }
 
     public var severity: DiagnosticSeverity {
@@ -55,7 +55,6 @@ public struct AutoDefaultsSettingMacro: DeclarationMacro {
         message: MacroDiagnostic.requiresThreeArguments,
         highlights: [Syntax(node.arguments)]
       )
-      context.diagnose(diagnostic)
       throw DiagnosticsError(diagnostics: [diagnostic])
     }
 
@@ -66,7 +65,6 @@ public struct AutoDefaultsSettingMacro: DeclarationMacro {
         message: MacroDiagnostic.keyMustBeStringLiteral,
         highlights: [Syntax(arguments[0].expression)]
       )
-      context.diagnose(diagnostic)
       throw DiagnosticsError(diagnostics: [diagnostic])
     }
 
@@ -79,7 +77,6 @@ public struct AutoDefaultsSettingMacro: DeclarationMacro {
         message: MacroDiagnostic.keyMustBePlainStringLiteral,
         highlights: [Syntax(keyExpr)]
       )
-      context.diagnose(diagnostic)
       throw DiagnosticsError(diagnostics: [diagnostic])
     }
 
@@ -91,7 +88,6 @@ public struct AutoDefaultsSettingMacro: DeclarationMacro {
         message: MacroDiagnostic.keyCannotBeEmpty,
         highlights: [Syntax(keyExpr)]
       )
-      context.diagnose(diagnostic)
       throw DiagnosticsError(diagnostics: [diagnostic])
     }
 
@@ -103,7 +99,6 @@ public struct AutoDefaultsSettingMacro: DeclarationMacro {
         message: MacroDiagnostic.keyMustBeValidIdentifier,
         highlights: [Syntax(keyExpr)]
       )
-      context.diagnose(diagnostic)
       throw DiagnosticsError(diagnostics: [diagnostic])
     }
 
@@ -116,7 +111,6 @@ public struct AutoDefaultsSettingMacro: DeclarationMacro {
         message: MacroDiagnostic.typeMustBeMemberAccess,
         highlights: [Syntax(arguments[1].expression)]
       )
-      context.diagnose(diagnostic)
       throw DiagnosticsError(diagnostics: [diagnostic])
     }
 
@@ -128,7 +122,6 @@ public struct AutoDefaultsSettingMacro: DeclarationMacro {
         node: Syntax(node),
         message: MacroDiagnostic.missingDefaultArgument
       )
-      context.diagnose(diagnostic)
       throw DiagnosticsError(diagnostics: [diagnostic])
     }
 

@@ -1,3 +1,4 @@
+internal import MacroTestHelper
 internal import SwiftSyntaxMacrosGenericTestSupport
 internal import Testing
 
@@ -7,7 +8,7 @@ internal import Testing
   @Suite
   struct AutoDefaultsSettingDiagnosticsTests {
     @Test func requiresThreeArguments() {
-      assertMacroExpansion(
+      MacroTestHelper.assertMacroExpansion(
         """
         #AutoDefaultsSetting(key: "onlyKey", type: String.self)
         """,
@@ -26,7 +27,7 @@ internal import Testing
     }
 
     @Test func interpolatedKeyThrowsError() {
-      assertMacroExpansion(
+      MacroTestHelper.assertMacroExpansion(
         """
         #AutoDefaultsSetting(key: "launch\\(1)", type: Int.self, default: 0)
         """,
